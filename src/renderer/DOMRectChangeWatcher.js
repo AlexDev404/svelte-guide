@@ -1,7 +1,6 @@
-import EventEmitter from 'es6-event-emitter';
-import objectsShallowEqual from 'shallow-equal/objects';
-import { getAbsoluteBoundingRect } from '../utils/dom';
-
+import EventEmitter from "es6-event-emitter";
+import { shallowEqualObjects } from "shallow-equal";
+import { getAbsoluteBoundingRect } from "../utils/dom";
 
 export default class DOMRectChangeWatcher extends EventEmitter {
   constructor(el, config) {
@@ -23,22 +22,22 @@ export default class DOMRectChangeWatcher extends EventEmitter {
   // The "watch" function is called at the DOM's animation frame rate continously
   watch() {
     if (this.shouldUpdate()) {
-      this.trigger('change', this.rect);
+      this.trigger("change", this.rect);
     }
 
-    if(!this.shouldStop){
+    if (!this.shouldStop) {
       window.requestAnimationFrame(() => this.watch());
     }
   }
 
   shouldUpdate() {
     let should = this.forceUpdate || this.rectsDidChange();
-    return !this.isLocked && should
+    return !this.isLocked && should;
   }
 
   rectsDidChange() {
     let newRect = getAbsoluteBoundingRect(this.el);
-    let rectsAreDifferent = !objectsShallowEqual(this.rect, newRect);
+    let rectsAreDifferent = !shallowEqualObjects(this.rect, newRect);
 
     if (rectsAreDifferent) {
       this.rect = newRect;
@@ -55,21 +54,21 @@ export default class DOMRectChangeWatcher extends EventEmitter {
     this.forceUpdate = true;
   }
 
-  lock(){
-    console.log('🔒 Locking')
+  lock() {
+    console.log("🔒 Locking");
     this.isLocked = true;
   }
 
-  unlock(){
-    console.log('🔑 Unlocking')
+  unlock() {
+    console.log("🔑 Unlocking");
     this.isLocked = false;
   }
 
-  unlockOnNextFrame(){
-    setTimeout(()=>this.unlock(),0)
+  unlockOnNextFrame() {
+    setTimeout(() => this.unlock(), 0);
   }
 
-  kill(){
+  kill() {
     this.shouldStop = true;
   }
 }

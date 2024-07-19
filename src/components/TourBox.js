@@ -1,4 +1,4 @@
-import { render } from 'lit-html/lib/lit-extended';
+import { render } from 'lit-html';
 import { DEFAULT_TEMPLATE, DEFAULT_WRAPPER_CSS } from '../defaults';
 import { createElement } from '../utils/dom';
 import { horizontalCenter, verticalCenter } from '../utils/orientation';
@@ -34,8 +34,8 @@ export default class TourBox {
   }
 
   goToPosition(x, y) {
-    this.wrapper.style.left = `${x}px`;
-    this.wrapper.style.top = `${y}px`;
+    this.wrapper.style.left = `${x < 0? 0: x}px`;
+    this.wrapper.style.top = `${y < 0? 0: y}px`;
   }
 
   calculateRelativeShift(orientation, targetRect, wrapperRect){

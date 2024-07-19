@@ -34,8 +34,8 @@ export default class Mask {
 
   setCanvasPosition(x, y, width, height){
     // Set the x, y position
-    this.canvas.style.top = `${y}px`;
-    this.canvas.style.left = `${x}px`
+    this.canvas.style.top = `${y < 0? 0: y}px`;
+    this.canvas.style.left = `${x < 0? 0: x}px`
 
     // Set the width, height dimensions
     setCanvasDimensions(this.canvas, width, height)
