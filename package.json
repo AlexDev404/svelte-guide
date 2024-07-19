@@ -1,8 +1,8 @@
 {
-  "name": "tour",
+  "name": "@alexdev404/tour",
   "version": "3.0.0",
   "description": "A simple, minimalist touring and on-boarding library for javascript",
-  "main": "dist/tour.js",
+  "main": "lib/index.js",
   "files": [
     "example",
     "dist",
